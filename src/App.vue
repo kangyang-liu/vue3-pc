@@ -3,6 +3,9 @@ import { ref } from 'vue';
 import { RouterView } from 'vue-router';
 import Master from '@/components/master/index.vue';
 import HearderTab from '@/components/hearderTab/index.vue';
+import { useKeepAliveRouteNameStore } from '@/stores/keepAliveRoute';
+
+const keepAliveRouteNameStore = useKeepAliveRouteNameStore();
 
 const headerStyle = {
   textAlign: 'center',
@@ -44,12 +47,10 @@ const footerStyle = {
       </a-layout-header>
       <a-layout-content :style="contentStyle">
         <RouterView v-slot="{ Component, route }">
-          <transition>
-            <KeepAlive v-if="route.meta?.keepAlive">
-              <component :is="Component" :key="route.fullPath" />
-            </KeepAlive>
-            <component v-else :is="Component" :key="route.fullPath" />
-          </transition>
+          <KeepAlive v-if="route.meta?.keepAlive" :include="keepAliveRouteNameStore.count">
+            <component :is="Component" :key="route.fullPath" />
+          </KeepAlive>
+          <component v-else :is="Component" :key="route.fullPath" />
         </RouterView>
       </a-layout-content>
       <a-layout-footer :style="footerStyle">Footer</a-layout-footer>

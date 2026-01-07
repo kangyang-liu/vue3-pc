@@ -9,6 +9,9 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import { useKeepAliveRouteNameStore } from '@/stores/keepAliveRoute';
+
+const keepAliveRouteNameStore = useKeepAliveRouteNameStore();
 
 const router = useRouter();
 const route = useRoute();
@@ -19,7 +22,6 @@ const panes = ref([]);
 
 // 添加标签页
 const addTab = (routeInfo) => {
-  console.log(routeInfo);
   const routePath = routeInfo.path;
   const fullPath = routeInfo.fullPath;
   const routeTitle = routeInfo.meta.title || routeInfo.name || routePath;
@@ -35,8 +37,9 @@ const addTab = (routeInfo) => {
       fullPath: routeInfo.fullPath,
       closable: panes.value.length > 0, // 至少保留一个标签页
     });
+
+    keepAliveRouteNameStore.addComponentsName(routeInfo.name);
   }
-  console.log('panes.value', panes.value);
 
   activeKey.value = fullPath;
 };
@@ -51,11 +54,10 @@ const removeTab = (targetKey) => {
   });
 
   const tabIndex = panes.value.findIndex((pane) => pane.fullPath === targetKey);
+  const tabInstall = panes.value.find((pane) => pane.fullPath === targetKey);
   if (tabIndex !== -1) {
-    // 获取要移除的组件实例，如果需要的话
-    const removedTab = panes.value[tabIndex];
-
     panes.value.splice(tabIndex, 1);
+    keepAliveRouteNameStore.removeComponentsName(tabInstall.name);
   }
 
   // 如果关闭的是当前激活的标签页，跳转到上一个标签页
@@ -76,7 +78,6 @@ const removeTab = (targetKey) => {
     // 仅更新路由，不跳转
     router.replace(activeKey.value);
   }
-  console.log('panes.value', panes.value);
 };
 
 // 标签页切换

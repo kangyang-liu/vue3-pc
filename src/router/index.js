@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { withName } from '@/utils/addComponentsName'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -6,7 +7,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../page/home/index.vue'),
+      component: withName('home', () => import('../page/home/index.vue')),
       meta: {
         title: 'home',
         keepAlive: true,
@@ -15,7 +16,7 @@ const router = createRouter({
     {
       path: '/demo1',
       name: 'demo1',
-      component: () => import('../page/demo1/index.vue'),
+      component: withName('demo1', () => import('../page/demo1/index.vue')),
       meta: {
         title: 'demo1',
         keepAlive: true,
@@ -24,7 +25,7 @@ const router = createRouter({
      {
       path: '/demo2',
       name: 'demo2',
-      component: () => import('../page/demo2/index.vue'),
+      component: withName('demo2', () => import('../page/demo2/index.vue')),
       meta: {
         title: 'demo2',
         keepAlive: true,

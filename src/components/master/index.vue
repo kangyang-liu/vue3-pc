@@ -147,12 +147,11 @@ watch(
 );
 
 const getMenu = (data) => {
-  console.log(data);
   const { item } = data;
   if (item.path && item.path !== '/') {
-    router.push({ path: item.path, query: { plan: 'private' } });
+    router.replace({ path: item.path, query: { plan: 'private' } });
   } else {
-    router.push({ path: '/' });
+    router.replace({ path: '/' });
   }
 };
 </script>
