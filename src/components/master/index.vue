@@ -134,6 +134,16 @@ const items = reactive([
             label: 'Option 18',
             title: 'Option 18',
           },
+          {
+            key: '19',
+            label: 'Option 19',
+            title: 'Option 19',
+          },
+          {
+            key: '20',
+            label: 'Option 20',
+            title: 'Option 20',
+          },
         ],
       },
     ],
@@ -155,3 +165,11 @@ const getMenu = (data) => {
   }
 };
 </script>
+
+<style lang="less" scoped>
+.menu-box {
+  height: 100%;
+  // padding-bottom: 48px;
+  overflow: auto;
+}
+</style>

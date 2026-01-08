@@ -24,7 +24,7 @@ const panes = ref([]);
 const addTab = (routeInfo) => {
   const routePath = routeInfo.path;
   const fullPath = routeInfo.fullPath;
-  const routeTitle = routeInfo.meta.title || routeInfo.name || routePath;
+  const routeTitle = routeInfo?.meta?.title || routeInfo.name || routePath;
 
   // 检查是否已存在标签页
   const existingTab = panes.value.find((pane) => pane.fullPath === fullPath);
@@ -105,21 +105,26 @@ watch(
 // 组件挂载时初始化第一个标签页
 onMounted(() => {
   if (panes.value.length === 0) {
-    panes.value.push({
+    const params = {
       title: 'home',
       path: route.path,
-      name: route.name,
-      fullPath: route.fullPath,
-      qeury: route.query,
+      name: route.name || 'home',
+      fullPath: route.fullPath || route.path,
+      qeury: route.query || {},
       closable: false, // 首页不可关闭
-    });
+    };
+    addTab(params);
     activeKey.value = route.path;
   }
 });
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .tabs-wrapper {
-  padding: 10px 20px 0;
+  background-color: #ffffffde;
+
+  :deep(.ant-tabs-nav) {
+    margin: unset;
+  }
 }
 </style>
