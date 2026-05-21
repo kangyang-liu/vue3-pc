@@ -1,17 +1,28 @@
 import { defineStore } from 'pinia'
-import {  ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 
 export const useKeepAliveRouteNameStore = defineStore('keepAliveRouteName', () => {
-  const count = ref([])
+  const keepAliveRouteNameList = ref([])
+
   function addComponentsName(value) {
-   count.value.push(value)
+    // 添加去重检查
+    if (!keepAliveRouteNameList.value.includes(value)) {
+      keepAliveRouteNameList.value.push(value)
+    }
   }
+
   function removeComponentsName(value) {
-    count.value = count.value.filter(item => item !== value)
+    keepAliveRouteNameList.value = keepAliveRouteNameList.value.filter(item => item !== value)
   }
-  watch(count, () => {
-    console.log('缓存页面', count.value)
+
+  // 清空所有缓存
+  function clearAllComponentsName() {
+    keepAliveRouteNameList.value = []
+  }
+
+  watch(keepAliveRouteNameList, () => {
+    console.log('缓存页面', keepAliveRouteNameList.value)
   })
 
-  return { count, addComponentsName, removeComponentsName }
+  return { keepAliveRouteNameList, addComponentsName, removeComponentsName, clearAllComponentsName }
 })

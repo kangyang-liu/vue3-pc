@@ -121,10 +121,69 @@ onMounted(() => {
 
 <style scoped lang="less">
 .tabs-wrapper {
-  background-color: #ffffffde;
+  height: 100%;
+  background: transparent;
 
-  :deep(.ant-tabs-nav) {
-    margin: unset;
+  :deep(.ant-tabs) {
+    height: 100%;
+
+    &.ant-tabs-card {
+      &.ant-tabs-top > .ant-tabs-nav::before {
+        display: none;
+      }
+    }
+
+    .ant-tabs-nav {
+      margin: 0;
+      padding: 8px 12px;
+      background: transparent;
+
+      .ant-tabs-nav-wrap {
+        gap: 8px;
+      }
+
+      .ant-tabs-tab {
+        margin: 0;
+        padding: 8px 20px;
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.03);
+        border: none;
+        transition: all 0.2s ease;
+        font-size: 14px;
+        font-weight: 500;
+        color: #64748b;
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.06);
+          color: #475569;
+        }
+
+        &.ant-tabs-tab-active {
+          background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+          color: #1e293b;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+          .ant-tabs-tab-btn {
+            color: #1e293b;
+          }
+        }
+
+        .ant-tabs-tab-btn {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: #64748b;
+        }
+      }
+
+      .ant-tabs-extra-content {
+        display: none;
+      }
+    }
+
+    .ant-tabs-content-holder {
+      display: none;
+    }
   }
 }
 </style>

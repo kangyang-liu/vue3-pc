@@ -27,22 +27,22 @@ const items = reactive([
   {
     key: '1',
     icon: () => h(PieChartOutlined),
-    label: 'Option 1',
-    title: 'Option 1',
+    label: 'home',
+    title: 'home',
     path: '/',
   },
   {
     key: '2',
     icon: () => h(DesktopOutlined),
-    label: 'Option 2',
-    title: 'Option 2',
+    label: 'demo1',
+    title: 'demo1',
     path: '/demo1',
   },
   {
     key: '3',
     icon: () => h(InboxOutlined),
-    label: 'Option 3',
-    title: 'Option 3',
+    label: 'demo2',
+    title: 'demo2',
     path: '/demo2',
   },
   {
@@ -169,7 +169,70 @@ const getMenu = (data) => {
 <style lang="less" scoped>
 .menu-box {
   height: 100%;
-  // padding-bottom: 48px;
+  padding: 16px 0;
   overflow: auto;
+}
+
+:deep(.ant-menu) {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+
+  &.ant-menu-inline {
+    padding: 0 8px;
+  }
+
+  .ant-menu-item {
+    margin: 4px 8px !important;
+    border-radius: 8px;
+    color: #94a3b8;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #f1f5f9;
+    }
+
+    &.ant-menu-item-selected {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+  }
+
+  .ant-menu-submenu {
+    .ant-menu-submenu-title {
+      margin: 4px 8px !important;
+      border-radius: 8px;
+      color: #94a3b8;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: #f1f5f9;
+      }
+    }
+  }
+
+  .ant-menu-sub {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border-radius: 8px;
+    margin: 4px 8px !important;
+    padding: 4px 0;
+
+    .ant-menu-item {
+      padding-left: 48px !important;
+
+      &.ant-menu-item-selected {
+        background: rgba(59, 130, 246, 0.2);
+        color: #60a5fa;
+      }
+    }
+  }
+
+  .ant-menu-item-icon {
+    color: inherit;
+    font-size: 16px;
+  }
 }
 </style>
